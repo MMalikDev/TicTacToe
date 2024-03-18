@@ -1,3 +1,8 @@
+ansicon==1.89.0
+blessed==1.20.0
 colorama==0.4.6
+jinxed==1.2.1
 pygame==2.5.2
+six==1.16.0
 tqdm==4.66.2
+wcwidth==0.2.13

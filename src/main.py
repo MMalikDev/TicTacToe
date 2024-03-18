@@ -22,28 +22,32 @@ def compare_computers(iterations: int) -> None:
 
 
 def get_opponent() -> game.Player:
-    message = "Playing %s"
     opponent = None
+    human = player.human
+    machine = player.agent
+    message = "Playing %s"
 
     match (sys.argv):
         case [*_, "cli", "human"]:
-            opponent, content = player.human.PlayerCLI(game.Letter.O), "Human in CLI"
+            opponent, content = human.PlayerCLI(game.Letter.O), "Human in CLI"
         case [*_, "gui", "human"]:
-            opponent, content = player.human.PlayerGUI(game.Letter.O), "Human in GUI"
+            opponent, content = human.PlayerGUI(game.Letter.O), "Human in GUI"
+        case [*_, "term", "human"]:
+            opponent, content = (human.PlayerTerm(game.Letter.O), "Human in Terminal")
         case [*_, "random"]:
-            opponent, content = player.agent.RandomPlayer(game.Letter.O), "Random"
+            opponent, content = machine.RandomPlayer(game.Letter.O), "Random"
         case [*_, "minimax"]:
-            opponent, content = player.agent.MinimaxPlayer(game.Letter.O), "Minimax"
+            opponent, content = machine.MinimaxPlayer(game.Letter.O), "Minimax"
 
     if not opponent:
         logger.debug("Using env to get opponent")
         match load_variable("OPPONENT", "").lower():
             case "random":
-                opponent, content = player.agent.RandomPlayer(game.Letter.O), "Random"
+                opponent, content = machine.RandomPlayer(game.Letter.O), "Random"
             case "minimax":
-                opponent, content = player.agent.MinimaxPlayer(game.Letter.O), "Minimax"
+                opponent, content = machine.MinimaxPlayer(game.Letter.O), "Minimax"
             case _:
-                opponent, content = player.agent.MinimaxPlayer(game.Letter.O), "Default"
+                opponent, content = machine.MinimaxPlayer(game.Letter.O), "Default"
 
     logger.info(message, content)
     return opponent
@@ -54,8 +58,9 @@ def get_opponent() -> game.Player:
 # ---------------------------------------------------------------------- #
 def main():
     COMPARE = load_variable("COMPARE", "").upper() in ["1", "TRUE"]
-    GUI = load_variable("GUI", "").upper() in ["1", "TRUE"]
+    TERM = load_variable("TERM", "").upper() in ["1", "TRUE"]
     CLI = load_variable("CLI", "").upper() in ["1", "TRUE"]
+    GUI = load_variable("GUI", "").upper() in ["1", "TRUE"]
     ITERATIONS = int(load_variable("ITERATIONS", 100))
 
     if COMPARE or "compare" in sys.argv:
@@ -69,6 +74,11 @@ def main():
     if CLI or "cli" in sys.argv:
         human = player.human.PlayerCLI(game.Letter.X)
         game.TicTacToeCLI().play(human, get_opponent())
+        return
+
+    if TERM or "term" in sys.argv:
+        human = player.human.PlayerTerm(game.Letter.X)
+        game.TicTacToeTerm().play(human, get_opponent())
         return
 
 

@@ -1,2 +1,3 @@
+blessed
 pygame 
 tqdm
