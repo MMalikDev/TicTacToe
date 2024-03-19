@@ -1,7 +1,4 @@
-from .base import Letter, Player, Square, TicTacToe
-
-LINE = " | "
-EMPTY = "  "
+from .base import Letter, Player, TicTacToe
 
 
 class TicTacToeCLI(TicTacToe):
@@ -12,7 +9,7 @@ class TicTacToeCLI(TicTacToe):
         players = {Letter.O: O, Letter.X: X}
         letter = Letter.X
 
-        self.render_board_nums()
+        self.render_board()
         while self.empty_squares():
             square = players[letter].get_move(self)
             if not self.made_move(square, letter):
@@ -31,23 +28,8 @@ class TicTacToeCLI(TicTacToe):
         print("\nGame Over! It is a tie.\n")
 
     def render_board(self) -> None:
-        board = [self.board[i * 3 : (i + 1) * 3] for i in range(3)]
-
-        for row in board:
-            values = [self._get_value(square) for square in row]
-            self._display_grid(values)
-
-    def render_board_nums(self) -> None:
-        number_board = [
-            [str(i + 1) for i in range(j * 3, (j + 1) * 3)] for j in range(3)
-        ]
-
-        for row in number_board:
-            self._display_grid(row)
-
-    def _display_grid(self, row) -> None:
-        print(f"{LINE}{LINE.join(row)}{LINE}")
-
-    def _get_value(self, square: Square) -> str:
-        value = square.value
-        return value if value is not None else EMPTY
+        for i in range(3):
+            row = self.board[i * 3 : (i + 1) * 3]
+            for j, square in enumerate(row):
+                row[j] = square.value or " %i" % (i + j + 1)
+            print("%s%s%s" % (" | ", " | ".join(row), " | "))

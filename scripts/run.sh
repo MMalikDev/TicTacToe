@@ -41,6 +41,7 @@ Configure $0 defaults using .env file
         - CLI=False         [0 | 1]
 
 EOF
+
     exit 1
 }
 
@@ -61,6 +62,8 @@ get_bool(){
         echo false
     fi
 }
+
+# Error Handlers
 handle_errors(){
     if [[ $(get_bool KEEP_LOGS) == "true" ]]; then
         printf "\n$icon_log Keeping logs...\n\n"
@@ -73,6 +76,10 @@ handle_errors(){
     
     clear
     printf "\n$icon_log Cleared logs...\n\n"
+}
+log_error() {
+    echo "$1" 2>&1;
+    exit 1;
 }
 
 # Docker
@@ -110,9 +117,18 @@ cp_docker(){
 }
 
 # Python
+use_venv(){
+    local os=$(uname | tr '[A-Z]' '[a-z]')
+
+    case ${os} in
+        linux* | darwin*) source .venv/bin/activate ;;
+        mingw* | cygwin*) source .venv/Scripts/activate ;;
+        *) log_error "$icon_start Unsupported operating system: $os" ;;
+    esac
+}
 run_python(){
     printf "\n$icon_start Running Python in local venv\n\n"
-    source .venv/Scripts/activate
+    use_venv
     cd $(get_env PYTHON_IMAGE)
     python main.py $@
     cd ..
