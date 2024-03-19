@@ -2,7 +2,8 @@ import sys
 
 from tqdm import tqdm
 
-from lib import game, player
+import game
+import player
 from lib.utilities import load_variable, logger
 
 

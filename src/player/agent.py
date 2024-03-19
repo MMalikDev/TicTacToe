@@ -1,7 +1,7 @@
 import math
 import random
 
-from lib import game
+import game
 
 
 class RandomPlayer(game.Player):

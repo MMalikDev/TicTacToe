@@ -1,4 +1,4 @@
-from lib import game
+import game
 
 
 class PlayerGUI(game.Player):
