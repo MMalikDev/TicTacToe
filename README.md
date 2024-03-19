@@ -5,19 +5,25 @@ Additionally, harness Docker for seamless deployment across different environmen
 
 ## Features
 
-- Two user interfaces: Graphical User Interface (Pygame) and Command Line Interface
-- Three opponents: Human Player, Random Computer, and Minimax Computer
-- Intriguing comparisons between AI players using local machines or Docker containers
+- **User Interfaces:** Offers a diverse selection of interfaces, including 1 Graphical User Interface (Pygame) and 2 Command Line Interfaces (Standard + Blessed).
+
+- **Opponents Variety:** Choose from three opponents: Human Player, Random Computer, and Minimax Computer.
+
+- **Comparative Analysis:** Engage in intriguing comparisons between the AI players utilizing either local machines or Docker containers.
 
 ### User Interfaces
 
 #### Graphical User Interface (GUI)
 
-The GUI leverages the Pygame library to create visually appealing graphics and animations.
+The interface utilizes the Pygame library to deliver visually appealing graphics and smooth animations.
 
 #### Command Line Interface (CLI)
 
-Designed for convenience and simplicity, enabling gameplay through the terminals.
+Designed for simplicity and accessibility, facilitating gameplay directly from the command line.
+
+#### Terminal Interface (TERM)
+
+Leveraging the Python Blessed library, this interface offers a blend of functionality and aesthetics, providing an enjoyable user experience within terminal environments.
 
 ### Opponents
 

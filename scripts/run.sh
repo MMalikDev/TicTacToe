@@ -12,13 +12,13 @@ Usage: $0 [OPTIONS] [ARGS]
 Run Project in specified environment
 
     OPTIONS
-     -d [ARGS]  Run in Devcontainer
-     -l [ARGS]  Run in Local env
-     -c         Run in Docker
-     -h         Display this help
+     -d [ARGS]          Run in Devcontainer
+     -l [ARGS]          Run in Local env
+     -c                 Run in Docker
+     -h                 Display this help
 
     ARGS
-     1. UI              cli | gui
+     1. UI              cli | gui | term
      2. OPPONENT        minimax | random | human
      _. Compare AIs     compare
 
@@ -34,14 +34,16 @@ Configure $0 defaults using .env file
 
     Default args and their [OPTIONS]:
         - OPPONENT=genius   [minimax | random | human]
-        - ITERATIONS=100    [ int ]
 
-        - COMPARE=False     [0 | 1]
+        - ITERATIONS=100    [ int ]
+        - COMPARE=TRUE      [0 | 1]
+
+        - TERM=False        [0 | 1]
         - GUI=False         [0 | 1]
         - CLI=False         [0 | 1]
 
 EOF
-
+    
     exit 1
 }
 
@@ -119,7 +121,7 @@ cp_docker(){
 # Python
 use_venv(){
     local os=$(uname | tr '[A-Z]' '[a-z]')
-
+    
     case ${os} in
         linux* | darwin*) source .venv/bin/activate ;;
         mingw* | cygwin*) source .venv/Scripts/activate ;;
