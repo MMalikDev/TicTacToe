@@ -17,11 +17,11 @@ Additionally, harness Docker for seamless deployment across different environmen
 
 The interface utilizes the Pygame library to deliver visually appealing graphics and smooth animations.
 
+#### Standard Output Interface (SOI)
+
+Designed for simplicity and accessibility, play using the built-in standard output of the command line.
+
 #### Command Line Interface (CLI)
-
-Designed for simplicity and accessibility, facilitating gameplay directly from the command line.
-
-#### Terminal Interface (TERM)
 
 Leveraging the Python Blessed library, this interface offers a blend of functionality and aesthetics, providing an enjoyable user experience within terminal environments.
 

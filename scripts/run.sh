@@ -19,7 +19,7 @@ Run Project in specified environment
      -h                 Display this help
 
     ARGS
-     1. UI              cli | gui | term
+     1. UI              cli | gui | soi
      2. OPPONENT        minimax | random | human
      _. Compare AIs     compare
 
@@ -39,9 +39,9 @@ Configure $0 defaults using .env file
         - ITERATIONS=100    [ int ]
         - COMPARE=TRUE      [0 | 1]
 
-        - TERM=False        [0 | 1]
-        - GUI=False         [0 | 1]
         - CLI=False         [0 | 1]
+        - GUI=False         [0 | 1]
+        - SOI=False         [0 | 1]
 
 EOF
     
