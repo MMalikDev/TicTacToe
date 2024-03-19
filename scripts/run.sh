@@ -14,7 +14,8 @@ Run Project in specified environment
     OPTIONS
      -d [ARGS]          Run in Devcontainer
      -l [ARGS]          Run in Local env
-     -c                 Run in Docker
+     -c                 Start the Docker container
+     -e [ARGS]          Execute the program in the container
      -h                 Display this help
 
     ARGS

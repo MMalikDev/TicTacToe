@@ -15,7 +15,7 @@ class TicTacToeCLI(TicTacToe):
             if not self.made_move(square, letter):
                 continue
 
-            print(f"\n{letter.value} made a move to {square   +1}\n")
+            print(f"\n{letter.value} made a move to {square + 1}\n")
             self.render_board()
 
             if not self.current_winner:

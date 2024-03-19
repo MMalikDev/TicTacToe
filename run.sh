@@ -32,10 +32,19 @@ run_docker(){
     handle_errors $?
     
     docker image prune -f
-    follow_logs ${logs[*]}
+    # follow_logs ${logs[*]}
     exit 0
 }
 
+docker_exec(){
+    set -f
+    local input=$1
+    local IFS=','
+    local array=($OPTARG)
+    
+    docker exec -it python python3 main.py ${array[*]}
+    exit 0
+}
 use_env_file(){
     [[ $(get_bool DEVCONTAINER) == "true" ]] && run_devcontainer $@
     [[ $(get_bool RUN_LOCAL) == "true" ]] && run_locally $@
@@ -46,11 +55,12 @@ use_env_file(){
 # Main Function
 # ---------------------------------------------------------------------- #
 main(){
-    while getopts "dlch" OPTION; do
+    while getopts "e:dlch" OPTION; do
         case $OPTION in
             d) run_devcontainer $@  ;;
             l) run_locally $@       ;;
             c) run_docker           ;;
+            e) docker_exec $OPTARG  ;;
             h) display_usage        ;;
             ?) display_usage        ;;
         esac
