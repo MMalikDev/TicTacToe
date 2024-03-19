@@ -12,19 +12,23 @@ class TicTacToeTerm(TicTacToe):
         super().__init__()
         self.display = Terminal()
 
-        self.blank = " " * self.display.width
-        self.invalid = "Invalid square. Try again."
-
-        w_off = self.display.width // 4
-        h_off = self.display.height // 4
-        w = self.display.width // 2
-        h = self.display.height // 2
-
         self.color_bg = self.display.on_black
         self.color_grid = self.display.on_gray
         self.color_cell = self.display.white_on_black
 
         self.boundary = self.color_grid(" ")
+        self.exit_msg = self.color_bg(" Press Any Key To Exit...")
+        self.invalid = self.color_bg(" Invalid square. Try again.")
+
+        self.init_sizes()
+
+    def init_sizes(self):
+        self.blank = self.color_bg(" " * self.display.width)
+
+        w_off = self.display.width // 4
+        h_off = self.display.height // 4
+        w = self.display.width // 2
+        h = self.display.height // 2
 
         self.horizontal = self.boundary * w
         self.top = Point(h_off + h // 3, w_off)
@@ -53,11 +57,12 @@ class TicTacToeTerm(TicTacToe):
             return self.display.inkey()
 
     def play(self, X: Player, O: Player) -> None:
-        msg = "Game Over! It is a tie."
+        msg = " Game Over! It is a tie."
         players = {Letter.O: O, Letter.X: X}
         letter = Letter.X
 
         self.clear_grid()
+        self.render_grid()
         self.render_board()
         while self.empty_squares():
             self.show_current_player(letter)
@@ -71,28 +76,33 @@ class TicTacToeTerm(TicTacToe):
                 letter = Letter.O if letter == Letter.X else Letter.X
                 continue
 
-            msg = f"Player {letter.value} wins!"
+            msg = f" Player {letter.value} wins!"
             break
 
+        self.game_over_msg(msg)
         self.exit()
-        print(msg)
 
-    def show_current_player(self, letter) -> None:
-        msg = f"Player {letter.value}'s turn..."
+    def game_over_msg(self, msg: str) -> None:
+        with self.display.location(), self.display.cbreak():
+            print(self.display.move_yx(1, 0), self.color_bg(msg))
+            print(self.display.move_yx(2, 0), self.exit_msg)
+            self.display.inkey()
+
+    def show_current_player(self, letter: Letter) -> None:
+        msg = f" Player {letter.value}'s turn..."
         with self.display.location():
-            print(self.display.move_yx(1, 2), self.color_bg(msg))
+            print(self.display.move_yx(1, 0), self.color_bg(msg))
 
     def invalid_input(self) -> None:
         with self.display.location():
-            print(self.display.move_yx(2, 2), self.color_bg(self.invalid))
+            print(self.display.move_yx(2, 0), self.invalid)
 
     def clear_log(self) -> None:
         with self.display.location():
-            print(self.display.move_yx(1, 0), self.color_bg(self.blank))
-            print(self.display.move_yx(2, 0), self.color_bg(self.blank))
+            print(self.display.move_yx(1, 0), self.blank)
+            print(self.display.move_yx(2, 0), self.blank)
 
     def render_board(self) -> None:
-        self.render_grid()
         for i, square in enumerate(self.board):
             self.display_cell(i, square)
 
