@@ -4,7 +4,7 @@ from tqdm import tqdm
 
 import game
 import player
-from lib.utilities import load_variable, logger
+from lib.utilities import load_bool, load_variable, logger
 
 
 def compare_computers(iterations: int) -> None:
@@ -59,26 +59,26 @@ def get_opponent() -> game.Player:
 # Main Functions                                                         #
 # ---------------------------------------------------------------------- #
 def main():
-    COMPARE = load_variable("COMPARE", "").upper() in ["1", "TRUE"]
-    CLI = load_variable("CLI", "").upper() in ["1", "TRUE"]
-    GUI = load_variable("GUI", "").upper() in ["1", "TRUE"]
-    SOI = load_variable("SOI", "").upper() in ["1", "TRUE"]
+    CLI = load_bool("CLI") or load_bool("cli")
+    GUI = load_bool("GUI") or load_bool("gui")
+    SOI = load_bool("SOI") or load_bool("soi")
+    COMPARE = load_bool("COMPARE") or load_bool("compare")
     ITERATIONS = int(load_variable("ITERATIONS", 100))
 
-    if COMPARE or "compare" in sys.argv:
+    if COMPARE:
         compare_computers(ITERATIONS)
 
-    if CLI or "cli" in sys.argv:
+    if CLI:
         human = player.human.PlayerCLI(game.Letter.X)
         game.TicTacToeCLI().play(human, get_opponent())
         return
 
-    if GUI or "gui" in sys.argv:
+    if GUI:
         human = player.human.PlayerGUI(game.Letter.X)
         game.TicTacToeGUI().play(human, get_opponent())
         return
 
-    if SOI or "soi" in sys.argv:
+    if SOI:
         human = player.human.PlayerSOI(game.Letter.X)
         game.TicTacToeSOI().play(human, get_opponent())
         return
