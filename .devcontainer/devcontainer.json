@@ -13,28 +13,13 @@
       "moby": "false"
     },
     "ghcr.io/devcontainers/features/python:1": {
-      "installTools": true,
-      "installJupyterlab": true,
+      "installTools": false,
+      "installJupyterlab": false,
       "version": "3.12"
-    },
-    "ghcr.io/devcontainers/features/rust:1": {
-      "version": "1.70",
-      "profile": "minimal"
-    },
-    "ghcr.io/devcontainers-contrib/features/node-asdf:0": {
-      "version": "latest"
-    },
-    "ghcr.io/prulloac/devcontainer-features/bun:1": {}
-  },
-
-  "postCreateCommand": "bash setup.sh",
-
-  "forwardPorts": [8000],
-  "portsAttributes": {
-    "8000": {
-      "label": "Website"
     }
   },
+
+  "postCreateCommand": "pip install -r src/requirements/versions.txt",
 
   "customizations": {
     "vscode": {
@@ -80,6 +65,7 @@
         // Misc.
         "redhat.telemetry.enabled": false
       },
+
       "extensions": [
         // Format
         "ms-python.black-formatter",
@@ -90,7 +76,12 @@
 
         // Python
         "ms-python.python",
-        "ms-python.vscode-pylance"
+        "ms-python.vscode-pylance",
+
+        // Misc.
+        "streetsidesoftware.code-spell-checker",
+        "Cardinal90.multi-cursor-case-preserve",
+        "vscode-icons-team.vscode-icons"
       ]
     }
   }
