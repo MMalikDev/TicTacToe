@@ -58,6 +58,7 @@ class TicTacToeCLI(TicTacToe):
 
     def play(self, X: Player, O: Player) -> None:
         msg = " Game Over! It is a tie."
+        buffer = " " * 4
         players = {Letter.O: O, Letter.X: X}
         letter = Letter.X
 
@@ -76,7 +77,7 @@ class TicTacToeCLI(TicTacToe):
                 letter = Letter.O if letter == Letter.X else Letter.X
                 continue
 
-            msg = f" Player {letter.value} wins!"
+            msg = f" Player {letter.value} wins!{buffer}"
             break
 
         self.game_over_msg(msg)

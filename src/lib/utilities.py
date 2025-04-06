@@ -105,7 +105,7 @@ def debug(func: Callable) -> Any:
 
 def test_logger(func: Callable) -> None:
     PASSED_ICON = "\u2705"
-    FAILED_ICON = "\u274C"
+    FAILED_ICON = "\u274c"
 
     def wrapper(*args, **kwargs):
         try:

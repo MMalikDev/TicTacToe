@@ -4,8 +4,8 @@ from typing import List, Optional
 
 
 class Letter(Enum):
-    X = "\u274C"
-    O = "\u2B55"
+    X = "\u274c"
+    O = "\u2b55"
 
 
 class Square(Enum):
