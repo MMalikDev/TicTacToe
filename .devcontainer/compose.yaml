@@ -1,17 +1,62 @@
+name: devcontainer
+
+networks:
+  workspaces:
+    name: workspaces
+    driver: bridge
+
+volumes:
+  cache:
+  local:
+
 services:
   devcontainer:
+    profiles: ["code"]
     build: .
     container_name: devcontainer
     image: vscode_devcontainer
     command: sleep infinity
 
     volumes:
-      - ../..:/workspaces:cached
+      - ..:/workspaces:cached
 
     networks:
       workspaces:
 
-networks:
-  workspaces:
-    name: vscode
-    driver: bridge
+  debian-container:
+    profiles: ["debian"]
+    build:
+      context: .
+      target: dev
+      args:
+        WORKSPACE_NAME: ${PROJECT_NAME:-code}
+    image: dev_debian
+    container_name: dev_debian
+
+    volumes:
+      - ../:/workspaces/${PROJECT_NAME:-code}:cached
+      - $HOME/.gitconfig:/home/dev/.gitconfig:ro
+      - cache:/home/dev/.cache
+      - local:/home/dev/.local
+
+    networks:
+      workspaces:
+
+  arch-container:
+    profiles: ["arch"]
+    build:
+      context: .
+      target: arch
+      args:
+        WORKSPACE_NAME: ${PROJECT_NAME:-code}
+    image: dev_arch
+    container_name: dev_arch
+
+    volumes:
+      - ../:/workspaces/${PROJECT_NAME:-code}:cached
+      - $HOME/.gitconfig:/home/dev/.gitconfig:ro
+      - cache:/home/dev/.cache
+      - local:/home/dev/.local
+
+    networks:
+      workspaces:

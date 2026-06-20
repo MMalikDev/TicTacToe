@@ -1,0 +1,113 @@
+[core]
+    editor = helix
+    autocrlf = input              # Keep newlines as in input
+    compression = 9               # Trade cpu for network
+    fsync = none                  # Clears the set of fsynced components
+    preloadindex = true           # Preload index for faster status
+    whitespace = error            # Threat incorrect whitespace as errors
+
+[init]
+    defaultBranch = main
+
+[advice]                          # Disable advices
+    addEmptyPathspec = false
+    pushNonFastForward = false
+    statusHints = false
+
+[status]
+    branch = true
+    showStash = true
+    showUntrackedFiles = all      # Show individual untracked files
+
+[diff]
+    context = 3                   # Less context in diffs
+    renames = copies              # Detect copies as renames in diffs
+    interHunkContext = 10         # Merge near hunks in diffs
+
+[pager]
+    branch = false                # No need to use pager for git branch
+    tag = false
+
+[interactive]
+    diffFilter = git diff --patch
+    singlekey = true
+
+[commit]
+    verbose = true                # Add more context to commit messages
+
+[push]
+    autoSetupRemote = true        # Easier to push new branches
+    default = current             # Push only current branch by default
+    followTags = true             # Push also tags
+
+[pull]
+    default = current
+    rebase = true
+
+[rebase]
+    autoStash = true
+    missingCommitsCheck = warn    # Warn if rebasing with missing commits
+
+[blame]
+    coloring = highlightRecent
+    date = relative
+
+[log]
+    abbrevCommit = true           # Short commits
+    graphColors = blue,yellow,cyan,magenta,green,red
+
+[submodule]
+    fetchJobs = 16
+
+[pack]
+    threads = 0                   # Use all available threads
+    windowMemory = 1g             # Use 1g of memory for pack window
+    packSizeLimit = 1g            # Max size of a packfile
+
+# Integrity
+[transfer]
+    fsckObjects = true
+
+[receive]
+    fsckObjects = true
+
+[fetch]
+    fsckObjects = true
+
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = -taggerdate
+
+# Colors
+[color.decorate]
+    tag = yellow
+    HEAD = blue
+    branch = green
+    remoteBranch = red
+
+[color "branch"]
+    current = cyan
+    local = white
+    plain = magenta
+    remote = red
+    upstream = yellow
+
+[color "diff"]
+    context= white
+    frag = blue bold
+    meta = magenta
+    old = red
+    whitespace = yellow reverse
+
+[color "blame"]
+    highlightRecent = black bold,1 year ago,white,1 month ago,default,7 days ago,blue
+
+# URL shortcuts
+[url "git@codeberg.org:"]
+    insteadOf = "cb:"
+[url "git@github.com:"]
+    insteadOf = "gh:"
+[url "git@gitlab.com:"]
+    insteadOf = "gl:"

@@ -1,0 +1,266 @@
+# ------------------------------------------------------------------------
+# Default Configs
+# https://github.com/helix-editor/helix/blob/master/languages.toml
+
+# ------------------------------------------------------------------------
+# Language Servers
+# ------------------------------------------------------------------------
+
+[language-server.ty]
+command = "ty"
+args = ["server"]
+
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[language-server.tombi]
+command = "tombi"
+args = ["lsp"]
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+args = []
+
+# ------------------------------------------------------------------------
+
+[language-server.bash-language-server]
+command = "bash-language-server"
+args = ["start"]
+
+[language-server.yaml-language-server]
+command = "yaml-language-server"
+args = ["--stdio"]
+
+[language-server.docker-langserver]
+command = "docker-langserver"
+args = ["--stdio"]
+
+# ------------------------------------------------------------------------
+
+[language-server.svelteserver]
+command = "svelteserver"
+args = ["--stdio"]
+
+[language-server.biome-lsp-proxy]
+command = "biome"
+args = ["lsp-proxy"]
+
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-eslint-language-server]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+
+# ------------------------------------------------------------------------
+
+[language-server.vscode-css-languageserver]
+command = "vscode-css-languageserver"
+args = ["--stdio"]
+
+[language-server.vscode-json-languageserver]
+command = "vscode-json-languageserver"
+args = ["--stdio"]
+
+[language-server.vscode-html-languageserver]
+command = "vscode-html-languageserver"
+args = ["--stdio"]
+
+[language-server.tailwindcss-ls]
+command = "tailwindcss-languageserver"
+args = ["--stdio"]
+
+# ------------------------------------------------------------------------
+
+[language-server.clangd]
+command = "clangd"
+args = []
+
+# ------------------------------------------------------------------------
+# Language
+# ------------------------------------------------------------------------
+[[language]]
+name = "python"
+auto-format = true
+language-servers = [
+  "ty",
+  "ruff",
+]
+
+[[language]]
+name = "toml"
+auto-format = true
+language-servers = ["tombi"]
+
+[[language]]
+name = "rust"
+auto-format = true
+language-servers = ["rust-analyzer"]
+
+# ------------------------------------------------------------------------
+
+[[language]]
+name = "javascript"
+auto-format = true
+roots = [
+  "biome.json",
+  "biome.jsonc",
+  "package.json",
+  "jsconfig.json",
+  ".prettierrc",
+  ".prettierignore",
+  ".eslintrc",
+  ".eslintignore",
+]
+language-servers = [
+  { name = "typescript-language-server", except-features = ["format"] },
+  "biome-lsp-proxy",
+  "vscode-eslint-language-server"
+]
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+
+[[language]]
+name = "typescript"
+auto-format = true
+roots = [
+  "biome.json",
+  "biome.jsonc",
+  "package.json",
+  "tsconfig.json",
+  ".prettierrc",
+  ".prettierignore",
+  ".eslintrc",
+  ".eslintignore",
+]
+language-servers = [
+  { name = "typescript-language-server", except-features = ["format"] },
+  "biome-lsp-proxy",
+  "vscode-eslint-language-server"
+]
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+
+[[language]]
+name = "jsx"
+auto-format = true
+roots = [
+  "biome.json",
+  "biome.jsonc",
+  "package.json",
+  "jsconfig.json",
+  ".prettierrc",
+  ".prettierignore",
+  ".eslintrc",
+  ".eslintignore",
+]
+language-servers = [
+  { name = "typescript-language-server", except-features = ["format"] },
+  "biome-lsp-proxy",
+  "vscode-eslint-language-server"
+]
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+
+[[language]]
+name = "tsx"
+auto-format = true
+roots = [
+  "biome.json",
+  "biome.jsonc",
+  "package.json",
+  "tsconfig.json",
+  ".prettierrc",
+  ".prettierignore",
+  ".eslintrc",
+  ".eslintignore",
+]
+language-servers = [
+  { name = "typescript-language-server", except-features = ["format"] },
+  "biome-lsp-proxy",
+  "vscode-eslint-language-server"
+]
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+
+[[language]]
+name = "svelte"
+auto-format = true
+language-servers = ["svelteserver"]
+
+# ------------------------------------------------------------------------
+
+[[language]]
+name = "bash"
+auto-format = true
+language-servers = ["bash-language-server"]
+formatter = { command = "shfmt" }
+
+[[language]]
+name = "yaml"
+auto-format = true
+language-servers = ["yaml-language-server"]
+formatter = { command = "prettier", args = ["--parser", "yaml"] }
+
+[[language]]
+name = "markdown"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "markdown"] }
+
+# ------------------------------------------------------------------------
+
+[[language]]
+name = "css"
+auto-format = true
+language-servers = ["vscode-css-language-server"]
+
+[[language]]
+name = "json"
+auto-format = true
+language-servers = ["vscode-json-language-server"]
+
+[[language]]
+name = "html"
+auto-format = true
+language-servers = ["vscode-html-language-server"]
+
+[[language]]
+name = "docker-compose"
+auto-format = true
+
+# ------------------------------------------------------------------------
+
+[[language]]
+name = "c"
+auto-format = true
+language-servers = ["clangd"]
+# formatter = { command = "clang-format" }
+
+[[language]]
+name = "cpp"
+auto-format = true
+language-servers = ["clangd"]
+# formatter = { command = "clang-format" }
+
+[[language]]
+name = "jinja"
+auto-format = true
+# formatter = { command = "prettier", args = ["--parser", "jinja-template"] }
+
+[[language]]
+name = "nginx"
+auto-format = true
+# formatter = { command = "prettier", args = ["--parser", "nginx"] }
+
+[[language]]
+name = "sql"
+auto-format = true
+# formatter = { command = "prettier", args = ["--parser", "sql"] }
+
+[[language]]
+name = "prisma"
+auto-format = true
+# formatter = { command = "prettier", args = ["--parser", "prisma"] }
+
+[[language]]
+name = "astro"
+auto-format = true
+# formatter = { command = "prettier", args = ["--parser", "astro"] }
